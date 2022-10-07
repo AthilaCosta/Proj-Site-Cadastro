@@ -1,6 +1,9 @@
 /* eslint-disable jsx-a11y/aria-role */
+/* eslint-disable react-hooks/exhaustive-deps */
+
 
 import React, { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 import { deleteUser, putUser } from "../Service/Request"
 import Input from "../components/Input"
 import './Style.css'
@@ -24,6 +27,11 @@ export default function Inicio() {
         const dadosUser = { ...user }
         dadosUser[object.name] = object.value
         setUser({ ...user, ...dadosUser })
+    }
+
+    let navigate = useNavigate()
+    function navigateToCadastro() {
+        navigate('/', { replace: true })
     }
 
     function editar() {
@@ -60,7 +68,7 @@ export default function Inicio() {
         } else {
             putUser(user).then((response) => {
                 const { usuario } = response.data
-                localStorage.setItem("user", JSON.stringify(usuario));
+                localStorage.setItem("user", JSON.stringify(usuario))
                 setUser(usuario)
                 setEnable(true)
                 setCancelarEdit(false)
@@ -73,7 +81,8 @@ export default function Inicio() {
     function deletar() {
         deleteUser(user).then((response) => {
             const { usuario } = response.data
-            localStorage.setItem("user", JSON.stringify(usuario));
+            localStorage.setItem("user", JSON.stringify(usuario))
+            navigateToCadastro()
         })
     }
 

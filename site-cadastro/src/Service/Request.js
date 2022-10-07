@@ -1,9 +1,9 @@
 import { api } from './Api'
 
 
-export function deleteUser(id) {
+export function deleteUser(user) {
     return api
-        .delete('cadastroUser/' + id)
+        .delete('cadastroUser/' + user.id, user)
         .then()
 }
 
