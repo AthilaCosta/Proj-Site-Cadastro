@@ -1,0 +1,125 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Helvetica;
+    border: none;
+}
+
+body {
+    background-color: #080031;
+    font-family: Helvetica;
+}
+
+legend {
+    text-align: center;
+    width: 300px;
+    font-size: 20px;
+    background-color: #adadad;
+    border: ridge 4px;
+    border-width: 8px;
+    border-color: #00074991;
+    margin-bottom: 15px;
+}
+
+legend[id="legendaIni"] {
+    width: auto;
+    border-width: 8px;
+    margin: 0px 29px 15px;
+}
+
+form {
+    margin: 0 auto;
+}
+
+section {
+    background: #bcbcbddc;
+    padding: 50px;
+    padding-bottom: 50px;
+    width: 470px;
+    margin: 0 auto;
+    margin-top: 1vh;
+    border-radius: 40px;
+}
+
+label {
+    font-size: 17px;
+    display: block;
+    width: 100%;
+    text-align: left;
+    margin: auto;
+    color: #0019a7;
+}
+
+input {
+    width: 369px;
+    border-bottom: 3px solid #323232;
+    margin-bottom: 20px;
+    padding: 10px;
+    box-shadow: none;
+    background-color: transparent;
+}
+
+input:hover {
+    background-color: #d1d1d1;
+    transition: .5s;
+}
+
+input::placeholder{
+    color: #110064;
+}
+
+input:focus {
+   border-bottom: 4px solid #110064;
+}
+
+button:hover {
+    background: #0c00ad;
+    transition: .5s;
+}
+
+button {
+    background: #06005a;
+    color: #c5c2c2;
+    border-style: ridge;
+    border-color: #424242;
+    border-radius: 20px;
+    height: 50px;
+    width: 100px;
+    margin: 0 40px;
+    font-size: 20px;
+    text-align: center;
+    text-shadow: none;
+    cursor: pointer;
+
+}
+
+button[id="cadaster"] {
+    margin: 0px 100px;
+    margin-top: 2px;
+    width: 150px;
+}
+
+button[id="logoff"]{
+    background-color: #af0000;
+    margin-left:1250px;
+    margin-top: 9px;
+}
+
+button[id="logoff"]:hover{
+    background-color: #ec0000;
+}
+
+button[id="botaoCancel"] {
+    margin-left: 100px;
+    margin-top: 6px;
+    width: 150px;
+    margin-bottom: 0px;
+}
+
+button:disabled,
+input:disabled {
+    background-color: #666666;
+    color: #c5c2c2;
+    cursor: not-allowed;
+}
