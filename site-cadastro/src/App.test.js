@@ -4,8 +4,6 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import Inicio from './componentes/Inicio'
 
-
-
 describe('teste inicio', () => {
 
   it("Não aparece o botão cancelar", () => {

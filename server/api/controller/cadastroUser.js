@@ -5,6 +5,16 @@ module.exports = app => {
   const cadastroUserDB = app.data.cadastroUser
   const controller = {}
 
+  function sendResponse({ message, res, status, data }) {
+    const success = status === 200 || status === 201
+    let resStatus = res.status(status).json({ message, data })
+    if (success) {
+      resStatus
+    } else {
+      resStatus
+    }
+  }
+
   const {
     cadastroUser: cadastroUserMock,
   } = cadastroUserDB
@@ -34,55 +44,51 @@ module.exports = app => {
 
     res.status(201).json(user)
   }
+
   controller.remove = (req, res) => {
     const { id } = req.params
-
     const foundCadastroUserIdex = cadastroUserMock.data.findIndex(cadastroUser => cadastroUser.id == id)
+    let notFound = foundCadastroUserIdex === -1
+    let message = !notFound ? "Usuario deletado" : "Usuario não encontrado"
+    let data;
+    let status;
 
-    if (foundCadastroUserIdex === -1) {
-      res.status(404).json({
-        message: 'Usuario não encontrado',
-        success: false,
-        cadastroUser: cadastroUserMock
-      })
+    if (notFound) {
+      data = { cadastroUser: cadastroUserMock }
+      status = 404
     } else {
       const deleteUser = {
         id: id,
         ...req.body
       }
-      cadastroUserMock.data.splice(foundCadastroUserIdex, 1, deleteUser)
-      res.status(200).json({
-        message: 'Usuario deletado',
-        success: true,
-        usuario: deleteUser
-      })
+      cadastroUserMock.data.splice(foundCadastroUserIdex, 1, newCadastroUser)
+      data = { usuario: deleteUser }
+      status = 200
     }
+    sendResponse({ message, status, data, res })
   }
 
   controller.update = (req, res) => {
+
     const { id } = req.params
-
     const foundCadastroUserIdex = cadastroUserMock.data.findIndex(cadastroUser => cadastroUser.id == id)
-
-    if (foundCadastroUserIdex === -1) {
-      res.status(404).json({
-        message: 'Usuario não encontrado',
-        success: false,
-        cadastroUser: cadastroUserMock
-      })
+    let notFound = foundCadastroUserIdex === -1
+    let message = !notFound ? "Usuario atualizado" : "Usuario não encontrado"
+    let data;
+    let status;
+    if (notFound) {
+      data = { cadastroUser: cadastroUserMock }
+      status = 404
     } else {
       const newCadastroUser = {
         id: id,
         ...req.body
       }
       cadastroUserMock.data.splice(foundCadastroUserIdex, 1, newCadastroUser)
-      res.status(200).json({
-        message: 'Usuario atualizado',
-        success: true,
-        usuario: newCadastroUser
-
-      })
+      data = { usuario: newCadastroUser }
+      status = 200
     }
+    sendResponse({ message, status, data, res })
 
   }
   return controller
