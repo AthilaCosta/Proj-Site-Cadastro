@@ -1,19 +1,10 @@
 const uuidv4 = require("uuid/v4")
-const cadastroUser = require("../routes/cadastroUser")
 
 module.exports = app => {
   const cadastroUserDB = app.data.cadastroUser
   const controller = {}
 
-  function sendResponse({ message, res, status, data }) {
-    const success = status === 200 || status === 201
-    let resStatus = res.status(status).json({ message, data })
-    if (success) {
-      resStatus
-    } else {
-      resStatus
-    }
-  }
+  const sendResponse = ({ message, res, status, data }) => res.status(status).json({ message, data });
 
   const {
     cadastroUser: cadastroUserMock,
@@ -23,13 +14,15 @@ module.exports = app => {
 
   controller.list = (req, res) => {
     res.status(200).json(data)
+
   }
 
   controller.getUser = (req, res) => {
     const filtered = req.params
     const filterUser = data.find(user => user.id == filtered.id)
     res.status(200).json(filterUser)
-  };
+   
+  }
 
   controller.save = (req, res) => {
     const user = {
@@ -50,8 +43,7 @@ module.exports = app => {
     const foundCadastroUserIdex = cadastroUserMock.data.findIndex(cadastroUser => cadastroUser.id == id)
     let notFound = foundCadastroUserIdex === -1
     let message = !notFound ? "Usuario deletado" : "Usuario não encontrado"
-    let data;
-    let status;
+    let data, status;
 
     if (notFound) {
       data = { cadastroUser: cadastroUserMock }
@@ -61,7 +53,7 @@ module.exports = app => {
         id: id,
         ...req.body
       }
-      cadastroUserMock.data.splice(foundCadastroUserIdex, 1, newCadastroUser)
+      cadastroUserMock.data.splice(foundCadastroUserIdex, 1, deleteUser)
       data = { usuario: deleteUser }
       status = 200
     }
@@ -74,8 +66,7 @@ module.exports = app => {
     const foundCadastroUserIdex = cadastroUserMock.data.findIndex(cadastroUser => cadastroUser.id == id)
     let notFound = foundCadastroUserIdex === -1
     let message = !notFound ? "Usuario atualizado" : "Usuario não encontrado"
-    let data;
-    let status;
+    let data, status;
     if (notFound) {
       data = { cadastroUser: cadastroUserMock }
       status = 404
@@ -93,15 +84,3 @@ module.exports = app => {
   }
   return controller
 }
-
-
-
-
-
-// const filter = req.query
-//     const filterUser = data.filter(user => {
-//       let isValid = true;
-//       for (id in filter) {
-//         isValid = isValid && user[id]==filter[id]
-//       }
-//     })

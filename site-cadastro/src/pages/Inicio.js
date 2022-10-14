@@ -1,11 +1,10 @@
 /* eslint-disable jsx-a11y/aria-role */
 /* eslint-disable react-hooks/exhaustive-deps */
 
-
+import Form from "../components/Form/Index"
 import React, { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import { deleteUser, putUser } from "../Service/Request"
-import Input from "../components/Input"
+import { deleteUser, putUser } from "../service/Request"
 import './Style.css'
 
 export default function Inicio() {
@@ -14,14 +13,13 @@ export default function Inicio() {
     const [enable, setEnable] = useState(true)
 
     //Hook transformar senha em texto
-    const [show, setShow] = useState("password")
+    const [showPassword, setShowPassword] = useState("password")
 
     //Hook sumir e aparecer botão cancelar edição
     const [cancelarEdit, setCancelarEdit] = useState(false)
 
-
     //Estado de dados
-    const [user, setUser] = useState({ name: "", age: "", email: "", password: "" })
+    const [user, setUser] = useState()
 
     const onChange = (object) => {
         const dadosUser = { ...user }
@@ -37,7 +35,7 @@ export default function Inicio() {
     function editar() {
         setCancelarEdit(true)
         setEnable(false)
-        setShow("text")
+        setShowPassword("text")
     }
 
     function cancelEdit() {
@@ -67,12 +65,13 @@ export default function Inicio() {
             alert("É preciso preencher os campos corretamente")
         } else {
             putUser(user).then((response) => {
-                const { usuario } = response.data
+                const { usuario } = response.data.data
+                console.log(response)
                 localStorage.setItem("user", JSON.stringify(usuario))
                 setUser(usuario)
                 setEnable(true)
                 setCancelarEdit(false)
-                setShow("password")
+                setShowPassword("password")
             })
 
         }
@@ -86,26 +85,27 @@ export default function Inicio() {
         })
     }
 
+    function logoff() {
+        localStorage.removeItem("user")
+        navigateToCadastro()
+    }
+
     //Array com todas as caracteristicas do input
-    const field = [
-        { key: 1, type: "text", label: "NOME", name: "name", value: user?.name, id: "inputName", role: "nome" },
-        { key: 2, type: "number", label: "IDADE", name: "age", value: user?.age, id: "inputIniAge", role: "idade" },
-        { key: 3, type: "email", label: "EMAIL", name: "email", value: user?.email, id: "inputIniEmail", role: "email" },
-        { key: 4, type: show, label: "SENHA", name: "password", value: user?.password, id: "inputIniPassword" }
+    const fields = [
+        { key: 1, type: "text", label: "NOME", name: "name", value: user?.name, id: "inputName", role: "nome", onChange: onChange, disabled: enable },
+        { key: 2, type: "number", label: "IDADE", name: "age", value: user?.age, id: "inputIniAge", role: "idade", onChange: onChange, disabled: enable },
+        { key: 3, type: "email", label: "EMAIL", name: "email", value: user?.email, id: "inputIniEmail", role: "email", onChange: onChange, disabled: enable },
+        { key: 4, type: showPassword, label: "SENHA", name: "password", value: user?.password, id: "inputIniPassword", onChange: onChange, disabled: enable }
     ]
 
 
     return (
         <div>
-            <button type="submit" id="logoff" onClick={deletar} >LOG-OFF</button>
+            <button type="submit" id="logoff" onClick={logoff} >LOG-OFF</button>
             <section>
                 <div>
                     <legend id="legendaIni">DADOS DO USUÁRIO</legend>
-                    <form id="forminicio" onSubmit={gravar}>
-                        {field.map(field => (<Input key={field.key} name={field.name} //Map para setar as caracteristicas do array
-                            label={field.label} type={field.type} id={field.id} className="inputIni"
-                            disabled={enable} value={field.value} onChange={onChange} autoComplete={field.autoComplete} role={field.role} />))}
-                    </form>
+                    <Form id="forminicio" onSubmit={gravar} listField={fields} />
                     <button type="submit" role="editar" onClick={editar}>EDITAR</button>
                     <button type="submit" id="botaoSave" role="salvar" onClick={gravar}
                         disabled={enable} > SALVAR </button>
@@ -118,12 +118,3 @@ export default function Inicio() {
     )
 
 }
-
-
- // if (!user.name || !user.age || !user.email || !user.password) {
-        //     alert("É necessário preencher os campos corretamentes")
-        // }
-        // else {
-        //putUser(user)
-        // window.location.reload()
-        //}

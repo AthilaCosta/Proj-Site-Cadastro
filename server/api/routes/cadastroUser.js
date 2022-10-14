@@ -3,7 +3,7 @@ module.exports = app => {
 
     app.route('/api/v1/cadastroUser')
         .get(controller.list)
-        .post(controller.save)
+        .post(controller.save);
 
     app.route('/api/v1/cadastroUser/:id')
         .delete(controller.remove)
