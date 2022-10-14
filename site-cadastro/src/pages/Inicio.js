@@ -6,6 +6,7 @@ import React, { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { deleteUser, putUser } from "../Service/Request"
 import './Style.css'
+import Buttons from "../components/Form/Button"
 
 export default function Inicio() {
 
@@ -97,6 +98,11 @@ export default function Inicio() {
         { key: 4, type: showPassword, label: "SENHA", name: "password", value: user?.password, id: "inputIniPassword", onChange: onChange, disabled: enable }
     ]
 
+    const fieldsButton = [
+        { key: 1, id: "buttonEdit", onClickConfirm: editar, childrenConfirm: "EDITAR" },
+        { key: 2, id: "buttonSave", onClickConfirm: gravar, disabled: enable, childrenConfirm: "SALVAR" }
+    ]
+
 
     return (
         <div>
@@ -105,9 +111,14 @@ export default function Inicio() {
                 <div>
                     <legend id="legendaIni">DADOS DO USUÁRIO</legend>
                     <Form id="forminicio" onSubmit={gravar} listField={fields} />
-                    <button type="submit" role="editar" onClick={editar}>EDITAR</button>
-                    <button type="submit" id="botaoSave" role="salvar" onClick={gravar}
-                        disabled={enable} > SALVAR </button>
+                    {fieldsButton.map(field => (
+                        <Buttons key={field.key} id={field.id} disabled={field.disabled} onClickConfirm={field.onClickConfirm}
+                        childrenConfirm={field.childrenConfirm} type="submit"
+                        />
+                    ))}
+                    {/* <button type="submit" role="editar" onClick={editar}>EDITAR</button>
+                    <button type="submit" id="botaoSave" role="salvar" onClick={gravar} */}
+                    {/* disabled={enable} > SALVAR </button> */}
                     {cancelarEdit && //Fazendo o botão desaparecer 
                         <button type="submit" id="botaoCancel" role="cancelarEdit" onClick={cancelEdit}>CANCELAR EDIÇÃO</button>
                     }

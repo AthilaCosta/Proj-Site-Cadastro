@@ -3,6 +3,7 @@ import { getUser, postUser } from "../Service/Request"
 import "./Style.css"
 import { useNavigate } from 'react-router-dom'
 import Form from "../components/Form/Index"
+import Buttons from "../components/Form/Button"
 
 export default function Cadastro() {
 
@@ -31,6 +32,10 @@ export default function Cadastro() {
         { key: 5, placeholder: "Confirme a senha", type: "password", label: "CONFIRMAR SENHA", name: "passwordConfirm", onChange: handleInputChange }
     ]
 
+    const fieldsButton = [
+        { key: 1, id: "cadaster", onClickConfirm: handleFormSubmit, childrenConfirm: "CADASTRAR" }
+    ]
+
     function handleFormSubmit() {
         if (!user.name || !user.age || !user.email || !user.password) {
             alert("É preciso preencher os campos corretamente")
@@ -56,7 +61,16 @@ export default function Cadastro() {
 
                 <legend>CADASTRO</legend>
                 <Form onSubmit={handleFormSubmit} listField={fields} />
-                <button type="submit" id="cadaster" onClick={handleFormSubmit}>CADASTRAR</button>
+               { fieldsButton.map(field => (
+                <Buttons
+                    key={field.key}
+                    id={field.id}
+                    onClickConfirm={field.onClickConfirm}
+                    childrenConfirm={field.childrenConfirm}
+                    type="submit"
+                />
+                ))}
+                {/* <button type="submit" id="cadaster" onClick={handleFormSubmit}>CADASTRAR</button> */}
 
             </div>
         </section>

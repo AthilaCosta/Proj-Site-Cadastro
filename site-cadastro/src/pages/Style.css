@@ -14,7 +14,7 @@ body {
 legend {
     text-align: center;
     width: 300px;
-    font-size: 20px;
+    font-size: 26px;
     background-color: #adadad;
     border: ridge 4px;
     border-width: 8px;
@@ -25,6 +25,7 @@ legend {
 
 legend[id="legendaIni"] {
     width: auto;
+    font-size: 20px;
     border-width: 8px;
     margin: 0px 29px 15px;
 }
