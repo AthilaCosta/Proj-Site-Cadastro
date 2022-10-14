@@ -4,7 +4,7 @@
 import Form from "../components/Form/Index"
 import React, { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import { deleteUser, putUser } from "../service/Request"
+import { deleteUser, putUser } from "../Service/Request"
 import './Style.css'
 
 export default function Inicio() {

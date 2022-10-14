@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { getUser, postUser } from "../service/Request"
+import { getUser, postUser } from "../Service/Request"
 import "./Style.css"
 import { useNavigate } from 'react-router-dom'
 import Form from "../components/Form/Index"
