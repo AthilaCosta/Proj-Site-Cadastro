@@ -32,7 +32,7 @@ export default function Cadastro() {
     ]
 
     function handleFormSubmit() {
-        if (!user.name || !user.age || !user.email || !user.password || !user.passwordConfirm) {
+        if (!user.name || !user.age || !user.email || !user.password) {
             alert("É preciso preencher os campos corretamente")
         }
         else if (user.password !== user.passwordConfirm) {

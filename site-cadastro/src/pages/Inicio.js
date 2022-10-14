@@ -65,8 +65,7 @@ export default function Inicio() {
             alert("É preciso preencher os campos corretamente")
         } else {
             putUser(user).then((response) => {
-                const { usuario } = response.data.data
-                console.log(response)
+                const { usuario } = response.data.BD
                 localStorage.setItem("user", JSON.stringify(usuario))
                 setUser(usuario)
                 setEnable(true)
@@ -79,7 +78,7 @@ export default function Inicio() {
 
     function deletar() {
         deleteUser(user).then((response) => {
-            const { usuario } = response.data
+            const { usuario } = response.data.BD
             localStorage.setItem("user", JSON.stringify(usuario))
             navigateToCadastro()
         })
@@ -101,7 +100,7 @@ export default function Inicio() {
 
     return (
         <div>
-            <button type="submit" id="logoff" onClick={logoff} >LOG-OFF</button>
+            <button type="submit" id="logoff" onClick={deletar} >LOG-OFF</button>
             <section>
                 <div>
                     <legend id="legendaIni">DADOS DO USUÁRIO</legend>

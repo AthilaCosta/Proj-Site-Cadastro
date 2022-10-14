@@ -36,7 +36,7 @@ describe('teste controller', () => {
             })
 
         expect(response.status).toBe(200)
-        expect(response.body.data.usuario.name).toBe("name test")
+        expect(response.body.BD.usuario.name).toBe("name test")
     })
 
     it('Testando se o put da erro com id errado', async () => {
@@ -63,17 +63,17 @@ describe('teste controller', () => {
         expect(response.body.name).toBe("name test")
     })
 
-    it("Testando o delete", async () =>{
+    it("Testando o delete", async () => {
         const response = await request(apiUrl)
-        .delete("/cadastroUser/1234")
+            .delete("/cadastroUser/1234")
 
         expect(response.status).toBe(200)
-        expect(response.body.data.usuario.name).toBe(undefined)
+        expect(response.body.BD.name).toBe(undefined)
     })
 
-    it("Testando falha no delete", async () =>{
+    it("Testando falha no delete", async () => {
         const response = await request(apiUrl)
-        .delete("/cadastroUser/123")
+            .delete("/cadastroUser/123")
         expect(response.status).toBe(404)
     })
 })

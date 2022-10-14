@@ -2,11 +2,11 @@
 
 import { render, screen, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import Inicio from './componentes/Inicio'
+import Inicio from '../Inicio'
 
 
 
-describe('teste inicio', () => {
+describe('teste botões inicio', () => {
 
   it("Não aparece o botão cancelar", () => {
     render(<Inicio />)
@@ -28,7 +28,7 @@ describe('teste inicio', () => {
     expect(buttonEdit).toBeInTheDocument();
   })
 
-  it("chamando a função", () => {
+  it("chamando a função editar", () => {
     render(<Inicio />)
     const buttonEdit = screen.queryByRole("editar")
     fireEvent.click(buttonEdit)
@@ -40,12 +40,15 @@ describe('teste inicio', () => {
     expect(screen.getByRole("salvar")).toBeDisabled()
   })
 
-  it("O botão editar está destravando", () => {
+  it("O botão editar está destravando o botão salvar", () => {
     render(<Inicio />)
     const butonnEdit = screen.queryByRole("editar")
     userEvent.click(butonnEdit)
     expect(screen.getByRole("salvar")).not.toBeDisabled()
   })
+})
+
+describe("Testes de input inicio", () => {
   it("Os input estão travando", () => {
     render(<Inicio />)
     const butonnEdit = screen.queryByRole("editar")
@@ -56,7 +59,7 @@ describe('teste inicio', () => {
     render(<Inicio />)
     const inputIdade = screen.queryByRole("idade")
     expect(inputIdade.value).toBe("")
-    fireEvent.change(inputIdade, {target: {value: "a"}})
+    fireEvent.change(inputIdade, { target: { value: "a" } })
     expect(inputIdade.value).toBe("")
   })
 })

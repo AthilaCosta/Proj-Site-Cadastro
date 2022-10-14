@@ -12,6 +12,7 @@ export default function listField({ list }) {
             onChange={field.onChange}
             value={field.value}
             disabled={field.disabled}
+            role={field.role}
         />
     ))
 }

@@ -4,7 +4,7 @@ module.exports = app => {
   const cadastroUserDB = app.data.cadastroUser
   const controller = {}
 
-  const sendResponse = ({ message, res, status, data }) => res.status(status).json({ message, data });
+  const sendResponse = ({ message, res, status, BD }) => res.status(status).json({ message, BD });
 
   const {
     cadastroUser: cadastroUserMock,
@@ -43,10 +43,10 @@ module.exports = app => {
     const foundCadastroUserIdex = cadastroUserMock.data.findIndex(cadastroUser => cadastroUser.id == id)
     let notFound = foundCadastroUserIdex === -1
     let message = !notFound ? "Usuario deletado" : "Usuario não encontrado"
-    let data, status;
+    let BD, status;
 
     if (notFound) {
-      data = { cadastroUser: cadastroUserMock }
+      BD = { cadastroUser: cadastroUserMock }
       status = 404
     } else {
       const deleteUser = {
@@ -54,10 +54,10 @@ module.exports = app => {
         ...req.body
       }
       cadastroUserMock.data.splice(foundCadastroUserIdex, 1, deleteUser)
-      data = { usuario: deleteUser }
+      BD = { usuario: deleteUser }
       status = 200
     }
-    sendResponse({ message, status, data, res })
+    sendResponse({ message, status, BD, res })
   }
 
   controller.update = (req, res) => {
@@ -66,9 +66,9 @@ module.exports = app => {
     const foundCadastroUserIdex = cadastroUserMock.data.findIndex(cadastroUser => cadastroUser.id == id)
     let notFound = foundCadastroUserIdex === -1
     let message = !notFound ? "Usuario atualizado" : "Usuario não encontrado"
-    let data, status;
+    let BD, status;
     if (notFound) {
-      data = { cadastroUser: cadastroUserMock }
+      BD = { cadastroUser: cadastroUserMock }
       status = 404
     } else {
       const newCadastroUser = {
@@ -76,10 +76,10 @@ module.exports = app => {
         ...req.body
       }
       cadastroUserMock.data.splice(foundCadastroUserIdex, 1, newCadastroUser)
-      data = { usuario: newCadastroUser }
+      BD = { usuario: newCadastroUser }
       status = 200
     }
-    sendResponse({ message, status, data, res })
+    sendResponse({ message, status, BD, res })
 
   }
   return controller
